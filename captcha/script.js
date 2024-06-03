@@ -2,17 +2,18 @@ const categoryParagraph = document.getElementById('category');
 const imagesContainer = document.getElementById('images');
 const resultParagraph = document.getElementById('result');
 
-const LVL1CATEGORIES = ['koty', 'psy', 'ptaki'];
-const LVL2CATEGORIES = ['aaa'];
-const LVL3CATEGORIES = ['bbb'];
+const LVL1CATEGORIES = ['psy', 'ptaki'];
+const LVL2CATEGORIES = ['koty', 'ptaki'];
+const LVL3CATEGORIES = ['koty', 'psy'];
 
 let IMG_CATEGORIES = [];
 let CURRENT_CATEGORY;
 let NO_OF_CORRECT;
+let currentLevel = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
   addImageClickEvent();
-  generateCaptcha(1);
+  generateCaptcha(currentLevel);
 });
 
 function generateCaptcha(level) {
@@ -36,9 +37,17 @@ function verifyCaptcha() {
   const correctSelection = Array.from(selectedImages).every(img => img.dataset.type === CURRENT_CATEGORY);
 
   if (correctSelection && selectedImages.length === NO_OF_CORRECT) {
-    resultParagraph.innerText = 'CAPTCHA passed!';
+    if (currentLevel < 3) {
+      currentLevel++;
+      resultParagraph.innerText = `CAPTCHA passed! Moving to level ${currentLevel}.`;
+      setTimeout(() => generateCaptcha(currentLevel), 2000);
+    } else {
+      resultParagraph.innerText = 'Congratulations! You have passed all levels!';
+    }
   } else {
-    resultParagraph.innerText = 'CAPTCHA failed. Try again.';
+    currentLevel = 1;
+    resultParagraph.innerText = 'CAPTCHA failed. Restarting at level 1.';
+    setTimeout(() => generateCaptcha(currentLevel), 2000);
   }
 }
 
