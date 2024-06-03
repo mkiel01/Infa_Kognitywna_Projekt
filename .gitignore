@@ -1,3 +1,4 @@
 .idea/
 .venv/
-data/
+#bone_fracture_detection/data/
+*.h5
