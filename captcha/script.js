@@ -2,9 +2,15 @@ const categoryParagraph = document.getElementById('category');
 const imagesContainer = document.getElementById('images');
 const resultParagraph = document.getElementById('result');
 
-const LVL1CATEGORIES = ['psy', 'ptaki'];
-const LVL2CATEGORIES = ['koty', 'ptaki'];
-const LVL3CATEGORIES = ['koty', 'psy'];
+// const LVL1CATEGORIES = ['psy', 'ptaki'];
+// const LVL2CATEGORIES = ['koty', 'ptaki'];
+// const LVL3CATEGORIES = ['koty', 'psy'];
+
+const LVL1CATEGORIES = ['broken', 'not_broken'];
+const LVL2CATEGORIES = ["arm", "chest", "elbow", "foot", "hand", "knee", "leg", "pelvis", "shoulder", "skull", "spine"];
+const LVL3CATEGORIES = ['Avulsion fracture','Comminuted fracture','Compression-Crush fracture','Fracture Dislocation',
+                  'Greenstick fracture','Hairline Fracture','Impacted fracture','Intra-articular fracture',
+                  'Longitudinal fracture','Oblique fracture'];
 
 let IMG_CATEGORIES = [];
 let CURRENT_CATEGORY;
@@ -99,8 +105,9 @@ function shuffleArray(array) {
 function createImageElement(level, category) {
   const img = document.createElement('img');
   const randomIdx = getRandomInt(0, 0);
-  img.src = `assets/level${level}/${category}/${randomIdx}.png`;
+  img.src = `assets/level${level}/${category}/${randomIdx}.jpg`;
   img.dataset.type = category;
+  console.log(img)
   return img;
 }
 
