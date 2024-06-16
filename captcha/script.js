@@ -8,14 +8,17 @@ const resultParagraph = document.getElementById('result');
 
 const LVL1CATEGORIES = ['broken', 'not_broken'];
 const LVL2CATEGORIES = ["arm", "chest", "elbow", "foot", "hand", "knee", "leg", "pelvis", "shoulder", "skull", "spine"];
-const LVL3CATEGORIES = ['Avulsion fracture','Comminuted fracture','Compression-Crush fracture','Fracture Dislocation',
-                  'Greenstick fracture','Hairline Fracture','Impacted fracture','Intra-articular fracture',
-                  'Longitudinal fracture','Oblique fracture'];
+const LVL3CATEGORIES = ['Avulsion_fracture','Comminuted_fracture','Fracture_Dislocation',
+                  'Greenstick_fracture','Hairline_Fracture','Impacted_fracture',
+                  'Longitudinal_fracture','Oblique_fracture', 'Pathological_fracture', 'Spiral_Fracture'];
 
 let IMG_CATEGORIES = [];
 let CURRENT_CATEGORY;
 let NO_OF_CORRECT;
 let currentLevel = 1;
+
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
   addImageClickEvent();
@@ -102,13 +105,25 @@ function shuffleArray(array) {
   return array;
 }
 
+
+
 function createImageElement(level, category) {
+  
+  let maxCat = 17
+  if (category == "chest" || category == "skull" || category == "Avulsion_fracture"){
+    maxCat = 3
+  }
+    
   const img = document.createElement('img');
-  const randomIdx = getRandomInt(0, 0);
+  let randomIdx = getRandomInt(0, maxCat);
+  if (randomIdx == 9){
+    randomIdx += 1
+  }
   img.src = `assets/level${level}/${category}/${randomIdx}.jpg`;
   img.dataset.type = category;
   console.log(img)
   return img;
+
 }
 
 function resetCaptchaState() {
